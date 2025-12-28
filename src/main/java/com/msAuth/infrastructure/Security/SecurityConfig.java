@@ -39,9 +39,6 @@ public class SecurityConfig {
     // y deja de generar la contraseña aleatoria en la consola.
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> {
-            throw new UsernameNotFoundException("User not found");
-        };
+        return username -> { throw new UsernameNotFoundException("User not found"); };
     }
-
 }
