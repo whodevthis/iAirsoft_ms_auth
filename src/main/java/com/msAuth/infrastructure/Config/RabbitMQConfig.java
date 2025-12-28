@@ -30,7 +30,7 @@ public class RabbitMQConfig {
         return new Queue(EXCEPTION_QUEUE);
     }
 
-    // Binding para capturar TODO lo que empiece por "audit." (login, updated, createUser...)
+
     @Bean
     public Binding auditBinding(Queue auditQueue, TopicExchange auditExchange) {
         return BindingBuilder.bind(auditQueue).to(auditExchange).with("audit.*");
