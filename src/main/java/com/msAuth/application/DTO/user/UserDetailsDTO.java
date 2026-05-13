@@ -1,6 +1,6 @@
 package com.msAuth.application.DTO.user;
 
-import com.msAuth.domain.states.UserType;
+import com.msAuth.domain.types.UserType;
 
 
 import java.util.UUID;

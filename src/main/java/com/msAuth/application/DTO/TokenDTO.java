@@ -1,6 +1,6 @@
 package com.msAuth.application.DTO;
 
-import com.msAuth.domain.states.TokenType;
+import com.msAuth.domain.types.TokenType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

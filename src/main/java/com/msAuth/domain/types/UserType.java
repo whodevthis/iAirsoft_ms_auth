@@ -1,4 +1,4 @@
-package com.msAuth.domain.states;
+package com.msAuth.domain.types;
 
 public enum UserType {
     ADMIN,

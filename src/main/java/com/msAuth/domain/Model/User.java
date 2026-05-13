@@ -1,7 +1,7 @@
 package com.msAuth.domain.Model;
 
 
-import com.msAuth.domain.states.UserType;
+import com.msAuth.domain.types.UserType;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,8 +20,5 @@ public class User {
     private  String email;
     private  UserType userType;
     private  boolean userStatus;
-
-
-
 
 }
