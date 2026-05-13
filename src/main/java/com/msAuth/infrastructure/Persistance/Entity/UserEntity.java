@@ -1,9 +1,10 @@
 package com.msAuth.infrastructure.Persistance.Entity;
 
 import com.msAuth.domain.Model.RoleUser;
-import com.msAuth.domain.Model.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.UUID;
 
 @Entity
 @Table(name = "users")
@@ -13,18 +14,13 @@ import lombok.*;
 public class UserEntity {
 
    @Id
-   @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Long id;
+   @GeneratedValue(strategy = GenerationType.UUID)
+   private UUID id;
    @Column(name = "user_name", nullable = false)
    private String userName;
    @Column(name = "user_password", nullable = false)
    private String password;
    @Enumerated(EnumType.STRING)
-   @Column(name = "user_role", nullable = false)
-   private RoleUser role;
-   @Enumerated(EnumType.STRING)
    @Column(name = "user_status", nullable = false)
    private UserStatus userStatus;
-   @Column(name = "user_creationDate", nullable = false)
-   long creationDate;
 }

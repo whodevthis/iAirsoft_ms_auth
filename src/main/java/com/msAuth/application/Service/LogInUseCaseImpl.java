@@ -10,7 +10,6 @@ import com.msAuth.application.exception.UserDisabledException;
 import com.msAuth.application.exception.UserNotFoundException;
 import com.msAuth.application.port.in.LogInUseCase;
 import com.msAuth.domain.Model.RoleUser;
-import com.msAuth.domain.Model.UserStatus;
 import com.msAuth.infrastructure.Messagin.Producer.ExceptionEventProducer;
 import com.msAuth.infrastructure.Messagin.Producer.UserLoggedInEventProducer;
 import com.msAuth.infrastructure.Persistance.Entity.UserEntity;

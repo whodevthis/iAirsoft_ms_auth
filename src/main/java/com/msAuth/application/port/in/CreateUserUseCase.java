@@ -1,8 +1,11 @@
 package com.msAuth.application.port.in;
 
 import com.msAuth.application.DTO.UserDTO;
+import com.msAuth.application.DTO.user.InputUserDto;
 import com.msAuth.domain.Model.RoleUser;
 
+import java.util.UUID;
+
 public interface CreateUserUseCase {
-    UserDTO createUser(String userName, RoleUser role ,  String ip );
+    UUID create (InputUserDto inputUserDto);
 }

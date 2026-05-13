@@ -1,4 +1,4 @@
-package com.msAuth.domain.Model;
+package com.msAuth.domain.states;
 
 public enum TokenType {
 

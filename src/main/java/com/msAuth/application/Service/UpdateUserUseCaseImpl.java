@@ -7,7 +7,6 @@ import com.msAuth.application.Mapper.UserMapper;
 import com.msAuth.application.port.in.UpdateUserUseCase;
 import com.msAuth.domain.Model.RoleUser;
 import com.msAuth.domain.Model.User;
-import com.msAuth.domain.Model.UserStatus;
 import com.msAuth.infrastructure.Messagin.Producer.UserUpdatedEventProducer;
 import com.msAuth.infrastructure.Persistance.Entity.UserEntity;
 import com.msAuth.infrastructure.Persistance.JPARepository.JpaUserRepository;

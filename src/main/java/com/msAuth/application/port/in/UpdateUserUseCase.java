@@ -1,7 +1,10 @@
 package com.msAuth.application.port.in;
 
-import com.msAuth.application.DTO.UserDTO;
+
+import com.msAuth.application.DTO.user.UserDetailsDTO;
+
+import java.util.UUID;
 
 public interface UpdateUserUseCase {
-    UserDTO updateUser(UserDTO userDTO,String ip);
+    UUID update (UserDetailsDTO userDetailsDTO);
 }
