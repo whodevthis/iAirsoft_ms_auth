@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 public class UserCreatedEventProducer {
     private final RabbitTemplate rabbitTemplate;
 
-    private static final String EXCHANGE_AUDIT = "audit.exchange";
-    private static final String ROUTING_KEY = "audit.createUser";
+    private static final String EXCHANGE_AUTH = "auth.exchange";
+    private static final String ROUTING_KEY = "auth.createUser";
 
     public void send(UserEvent event) {
-        rabbitTemplate.convertAndSend(EXCHANGE_AUDIT, ROUTING_KEY, event);
+        rabbitTemplate.convertAndSend(EXCHANGE_AUTH, ROUTING_KEY, event);
     }
 }

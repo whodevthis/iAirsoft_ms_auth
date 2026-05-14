@@ -1,7 +1,8 @@
 package com.msAuth.application.Service.user;
 
-import com.msAuth.application.DTO.user.InputUserDto;
-import com.msAuth.application.DTO.user.UserDetailsDTO;
+import com.msAuth.application.dto.user.InputUserDto;
+import com.msAuth.application.dto.user.UserDetailsDTO;
+import com.msAuth.application.Event.NotificationEvent;
 import com.msAuth.application.Event.UserAction;
 import com.msAuth.application.Event.UserEvent;
 import com.msAuth.application.exception.UserNotFoundException;
@@ -11,6 +12,7 @@ import com.msAuth.application.port.in.user.command.UpdateUserUseCase;
 import com.msAuth.application.port.out.UserRepositoryPort;
 import com.msAuth.application.utils.GenericUtils;
 import com.msAuth.domain.Model.User;
+import com.msAuth.infrastructure.Messagin.Producer.NotificationEventProducer;
 import com.msAuth.infrastructure.Messagin.Producer.UserCreatedEventProducer;
 import com.msAuth.infrastructure.Messagin.Producer.UserDeletedEventProducer;
 import com.msAuth.infrastructure.Messagin.Producer.UserUpdatedEventProducer;
@@ -29,6 +31,7 @@ public class UserCommandService implements CreateUserUseCase, DeleteUserUseCase,
     private final GenericUtils genericUtils;
     private final PasswordEncoder passwordEncoder;
     private final UserCreatedEventProducer userCreatedEventProducer;
+    private final NotificationEventProducer notificationEventProducer;
     private final UserUpdatedEventProducer userUpdatedEventProducer;
     private final UserDeletedEventProducer userDeletedEventProducer;
 
@@ -45,7 +48,8 @@ public class UserCommandService implements CreateUserUseCase, DeleteUserUseCase,
         User saved = userRepositoryPort.save(user);
 
         if (inputUserDto.userType().name().equals("USER")) {
-            userCreatedEventProducer.send(new UserEvent(saved.getId(), saved.getUserName(), null, ip, System.currentTimeMillis(), null, UserAction.CREATED));
+            userCreatedEventProducer.send(new UserEvent(saved.getId(), saved.getUserName(), null, ip,
+                    System.currentTimeMillis(), true, UserAction.CREATED));
         }
         notificationEventProducer.send(new NotificationEvent(
                 saved.getId(),
@@ -64,7 +68,8 @@ public class UserCommandService implements CreateUserUseCase, DeleteUserUseCase,
 
         User saved = userRepositoryPort.save(updated);
 
-        userUpdatedEventProducer.send(new UserEvent(saved.getId(), saved.getUserName(), null, ip, System.currentTimeMillis(), null, UserAction.UPDATED));
+        userUpdatedEventProducer.send(new UserEvent(saved.getId(), saved.getUserName(),
+                null, ip, System.currentTimeMillis(), userDetailsDTO.userStatus(), UserAction.UPDATED));
 
         return saved.getId();
     }
@@ -76,6 +81,7 @@ public class UserCommandService implements CreateUserUseCase, DeleteUserUseCase,
 
         userRepositoryPort.deleteById(id);
 
-        userDeletedEventProducer.send(new UserEvent(user.getId(), user.getUserName(), null, ip, System.currentTimeMillis(), null, UserAction.DELETED));
+        userDeletedEventProducer.send(new UserEvent(user.getId(), user.getUserName(), null, ip, System.currentTimeMillis(),
+                false, UserAction.DELETED));
     }
 }

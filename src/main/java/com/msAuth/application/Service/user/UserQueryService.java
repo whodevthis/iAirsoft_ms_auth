@@ -1,13 +1,12 @@
 package com.msAuth.application.Service.user;
 
-import com.msAuth.application.DTO.user.UserDetailsDTO;
-import com.msAuth.application.DTO.user.UserDto;
+import com.msAuth.application.dto.user.UserDetailsDTO;
+import com.msAuth.application.dto.user.UserDto;
 import com.msAuth.application.Mapper.UserMapper;
 import com.msAuth.application.exception.UserNotFoundException;
 import com.msAuth.application.port.out.UserRepositoryPort;
 import com.msAuth.application.utils.GenericUtils;
 import com.msAuth.domain.Model.User;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

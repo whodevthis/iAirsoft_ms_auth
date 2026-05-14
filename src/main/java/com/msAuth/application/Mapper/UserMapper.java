@@ -1,8 +1,8 @@
 package com.msAuth.application.Mapper;
 
-import com.msAuth.application.DTO.user.UserDetailsDTO;
-import com.msAuth.application.DTO.user.UserDto;
-import com.msAuth.application.DTO.user.InputUserDto;
+import com.msAuth.application.dto.user.UserDetailsDTO;
+import com.msAuth.application.dto.user.UserDto;
+import com.msAuth.application.dto.user.InputUserDto;
 import com.msAuth.domain.Model.User;
 import org.mapstruct.Mapper;
 

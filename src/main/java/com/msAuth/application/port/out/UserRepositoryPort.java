@@ -1,6 +1,5 @@
 package com.msAuth.application.port.out;
 
-import com.msAuth.application.DTO.user.UserDto;
 import com.msAuth.domain.Model.User;
 import org.springframework.data.jpa.domain.Specification;
 

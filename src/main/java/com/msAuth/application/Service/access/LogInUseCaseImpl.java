@@ -1,4 +1,4 @@
-package com.msAuth.application.Service;
+package com.msAuth.application.Service.access;
 
 import com.msAuth.application.Event.ExceptionAction;
 import com.msAuth.application.Event.ExceptionEvent;
@@ -22,7 +22,7 @@ import org.springframework.stereotype.Service;
 public class LogInUseCaseImpl implements LogInUseCase {
 
     private final JwtProvider jwtProvider;
-    private final UserRepositoryPort userRepositoryPort; // ✅ puerto, no JPA directo
+    private final UserRepositoryPort userRepositoryPort;
     private final PasswordEncoder passwordEncoder;
     private final UserLoggedInEventProducer userLoggedInEventProducer;
     private final ExceptionEventProducer exceptionEventProducer;
@@ -40,7 +40,7 @@ public class LogInUseCaseImpl implements LogInUseCase {
                     null,
                     ip,
                     System.currentTimeMillis(),
-                    null,
+                    true,
                     UserAction.LOGIN
             ));
 

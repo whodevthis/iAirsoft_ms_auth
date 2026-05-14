@@ -1,4 +1,4 @@
-package com.msAuth.application.DTO.user;
+package com.msAuth.application.dto.user;
 
 import com.msAuth.domain.types.UserType;
 

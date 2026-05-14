@@ -21,4 +21,5 @@ public class User {
     private  UserType userType;
     private  boolean userStatus;
 
+
 }

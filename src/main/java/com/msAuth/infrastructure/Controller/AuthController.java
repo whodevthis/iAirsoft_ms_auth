@@ -1,8 +1,8 @@
 package com.msAuth.infrastructure.Controller;
 
-import com.msAuth.application.DTO.user.InputUserDto;
-import com.msAuth.application.DTO.user.UserDetailsDTO;
-import com.msAuth.application.DTO.user.UserDto;
+import com.msAuth.application.dto.user.InputUserDto;
+import com.msAuth.application.dto.user.UserDetailsDTO;
+import com.msAuth.application.dto.user.UserDto;
 import com.msAuth.application.Service.user.UserCommandService;
 import com.msAuth.application.Service.user.UserQueryService;
 import com.msAuth.application.port.in.access.LogInUseCase;

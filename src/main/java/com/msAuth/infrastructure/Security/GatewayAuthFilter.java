@@ -16,32 +16,24 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class JwtFilter extends OncePerRequestFilter {
-
-    private final JwtProvider jwtProvider;
+public class GatewayAuthFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        String header = request.getHeader("Authorization");
+        String userId = request.getHeader("X-User-Id");
+        String role   = request.getHeader("X-User-Role");
 
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
-
-            if (jwtProvider.isTokenValid(token)) {
-                String role = jwtProvider.extractRole(token);
-
-                UsernamePasswordAuthenticationToken auth =
-                        new UsernamePasswordAuthenticationToken(
-                                jwtProvider.extractUserId(token),
-                                null,
-                                List.of(new SimpleGrantedAuthority(role))
-                        );
-
-                SecurityContextHolder.getContext().setAuthentication(auth);
-            }
+        if (userId != null && role != null) {
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(
+                            userId,
+                            null,
+                            List.of(new SimpleGrantedAuthority(role))
+                    );
+            SecurityContextHolder.getContext().setAuthentication(auth);
         }
 
         filterChain.doFilter(request, response);

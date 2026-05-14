@@ -34,7 +34,7 @@ public class PasswordUpdateConsumer {
         User updated = new User(
                 user.getId(),
                 user.getUserName(),
-                passwordEncoder.encode(event.newPassword()), // ✅ se encodea en msAuth
+                passwordEncoder.encode(event.newPassword()),
                 user.getEmail(),
                 user.getUserType(),
                 user.isUserStatus()

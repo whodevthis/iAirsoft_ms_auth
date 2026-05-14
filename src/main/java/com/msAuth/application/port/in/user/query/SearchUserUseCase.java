@@ -1,6 +1,6 @@
 package com.msAuth.application.port.in.user.query;
 
-import com.msAuth.application.DTO.user.UserDto;
+import com.msAuth.application.dto.user.UserDto;
 
 import java.util.List;
 

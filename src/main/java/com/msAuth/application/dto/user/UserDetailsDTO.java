@@ -1,8 +1,9 @@
-package com.msAuth.application.DTO.user;
+package com.msAuth.application.dto.user;
 
 import com.msAuth.domain.types.UserType;
 
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public record UserDetailsDTO (
@@ -11,7 +12,9 @@ public record UserDetailsDTO (
     String password,
     String email,
     UserType userType,
-    boolean userStatus)
+    boolean userStatus,
+    LocalDateTime createdAt
+    )
     {
 
 }

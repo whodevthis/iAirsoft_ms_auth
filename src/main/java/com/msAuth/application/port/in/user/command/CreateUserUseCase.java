@@ -1,6 +1,6 @@
 package com.msAuth.application.port.in.user.command;
 
-import com.msAuth.application.DTO.user.InputUserDto;
+import com.msAuth.application.dto.user.InputUserDto;
 
 import java.util.UUID;
 

@@ -1,10 +1,9 @@
 package com.msAuth.application.Event;
 
-import com.msAuth.domain.Model.RoleUser;
+import com.msAuth.domain.types.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
 @Data
@@ -13,9 +12,9 @@ import java.util.UUID;
 public class UserEvent {
     private UUID id;
     private String userName;
-    private RoleUser role;
+    private UserType userType;
     private String ip;
-    private long timestamp; // para auditoría
-    private UserStatus userStatus;
-    private UserAction action; // nueva propiedad
+    private long timestamp;
+    private boolean userStatus;
+    private UserAction action;
 }

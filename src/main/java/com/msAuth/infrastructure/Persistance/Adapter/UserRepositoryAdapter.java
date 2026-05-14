@@ -6,7 +6,7 @@ import com.msAuth.infrastructure.Persistance.Entity.UserEntity;
 import com.msAuth.infrastructure.Persistance.JPARepository.JpaUserRepository;
 import com.msAuth.infrastructure.Persistance.Mapper.UserPersistenceMapper;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
+import jakarta.persistence.criteria.Root;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -23,21 +23,17 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public User save(User user) {
-        return userPersistenceMapper.toDomain(
-                jpaUserRepository.save(userPersistenceMapper.toEntity(user))
-        );
+        return userPersistenceMapper.toDomain(jpaUserRepository.save(userPersistenceMapper.toEntity(user)));
     }
 
     @Override
     public Optional<User> findByUserName(String userName) {
-        return jpaUserRepository.findByUserName(userName)
-                .map(userPersistenceMapper::toDomain);
+        return jpaUserRepository.findByUserName(userName).map(userPersistenceMapper::toDomain);
     }
 
     @Override
     public Optional<User> findById(UUID id) {
-        return jpaUserRepository.findById(id)
-                .map(userPersistenceMapper::toDomain);
+        return jpaUserRepository.findById(id).map(userPersistenceMapper::toDomain);
     }
 
     @Override
@@ -52,19 +48,13 @@ public class UserRepositoryAdapter implements UserRepositoryPort {
 
     @Override
     public List<User> findAll() {
-        return jpaUserRepository.findAll()
-                .stream()
-                .map(userPersistenceMapper::toDomain)
-                .toList();
+        return jpaUserRepository.findAll().stream().map(userPersistenceMapper::toDomain).toList();
     }
+
     @Override
     public List<User> search(Specification<User> spec) {
-        Specification<UserEntity> entitySpec = (root, query, cb) ->
-                spec.toPredicate(root, query, cb);
-
+        Specification<UserEntity> entitySpec = (root, query, cb) -> spec.toPredicate((Root) root, query, cb);
         return jpaUserRepository.findAll(entitySpec)
-                .stream()
-                .map(userPersistenceMapper::toDomain)
-                .toList();
+                .stream().map(userPersistenceMapper::toDomain).toList();
     }
 }

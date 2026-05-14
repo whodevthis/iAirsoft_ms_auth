@@ -3,7 +3,7 @@ package com.msAuth.infrastructure.Messagin.Config;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,37 +12,13 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfig {
 
     // Exchanges
-    public static final String AUDIT_EXCHANGE        = "audit.exchange";
     public static final String NOTIFICATION_EXCHANGE = "notification.exchange";
     public static final String AUTH_EXCHANGE         = "auth.exchange";
 
     // Queues
-    public static final String EXCEPTION_QUEUE       = "audit.exception.queue";
     public static final String PASSWORD_UPDATE_QUEUE = "auth.password.update.queue";
 
-    // ── audit.exchange ──────────────────────────────────────
-    @Bean
-    public TopicExchange auditExchange() {
-        return new TopicExchange(AUDIT_EXCHANGE);
-    }
-
-    @Bean
-    public Queue exceptionQueue() {
-        return QueueBuilder.durable(EXCEPTION_QUEUE).build();
-    }
-
-    @Bean
-    public Binding exceptionBinding(Queue exceptionQueue, TopicExchange auditExchange) {
-        return BindingBuilder.bind(exceptionQueue).to(auditExchange).with("audit.exception");
-    }
-
-    // ── notification.exchange ───────────────────────────────
-    @Bean
-    public TopicExchange notificationExchange() {
-        return new TopicExchange(NOTIFICATION_EXCHANGE);
-    }
-
-    // ── auth.exchange (recibe desde msNotifications) ────────
+    // ── auth.exchange ────────────────────────────────────────
     @Bean
     public TopicExchange authExchange() {
         return new TopicExchange(AUTH_EXCHANGE);
@@ -61,10 +37,16 @@ public class RabbitMQConfig {
                 .with("auth.password.update");
     }
 
-    // ── Converter ───────────────────────────────────────────
+    // ── notification.exchange ────────────────────────────────
+    @Bean
+    public TopicExchange notificationExchange() {
+        return new TopicExchange(NOTIFICATION_EXCHANGE);
+    }
+
+    // ── Converter ────────────────────────────────────────────
     @Bean
     public MessageConverter jsonMessageConverter() {
-        return new JacksonJsonMessageConverter();
+        return new Jackson2JsonMessageConverter();
     }
 
     @Bean
