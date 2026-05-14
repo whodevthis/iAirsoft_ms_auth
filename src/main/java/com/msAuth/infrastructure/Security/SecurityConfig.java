@@ -1,5 +1,6 @@
 package com.msAuth.infrastructure.Security;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -10,9 +11,14 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final GatewayAuthFilter gatewayAuthFilter;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -24,21 +30,22 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                )
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // RECOMENDACIÓN: Usa comodines para evitar errores de ruta
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/login").permitAll()
+                        .requestMatchers("/api/auth/users").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
-                );
-
+                )
+                .addFilterBefore(gatewayAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
-    // Al definir esto, Spring entiende que TÚ manejas los usuarios
-    // y deja de generar la contraseña aleatoria en la consola.
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> { throw new UsernameNotFoundException("User not found"); };
+        return username -> {
+            throw new UsernameNotFoundException("Use Gateway authentication");
+        };
     }
 }

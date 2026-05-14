@@ -1,7 +1,5 @@
 package com.msAuth.infrastructure.Messagin.Producer;
 
-
-
 import com.msAuth.application.Event.ExceptionEvent;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -13,8 +11,8 @@ public class ExceptionEventProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    private static final String EXCHANGE = "audit.exchange";
-    private static final String ROUTING_KEY = "audit.exception";
+    private static final String EXCHANGE = "notification.exchange";
+    private static final String ROUTING_KEY = "notification.exception";
 
     public void send(ExceptionEvent event) {
         rabbitTemplate.convertAndSend(EXCHANGE, ROUTING_KEY, event);
